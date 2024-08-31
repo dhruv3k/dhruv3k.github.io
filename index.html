@@ -10,36 +10,55 @@
             background: linear-gradient(to right, #00c6ff, #0072ff); /* Change this for different themes */
             color: white;
         }
+        .card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">My Portfolio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">Research <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="education.html">Education</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="extracurricular.html">Extra Curricular Activities</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="industry_experience.html">Industry Experience</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
 <div class="container mt-5">
-    <h1>Welcome to My Portfolio</h1>
-    <p>This is a brief introduction about me. I am passionate about research, education, and continuous learning.</p>
+    <h1 class="text-center">Welcome to My Portfolio</h1>
+    <p class="text-center">This is a brief introduction about me. I am passionate about research, education, and continuous learning.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card h-100 text-center bg-primary text-white mb-4" onclick="location.href='research.html'">
+                <div class="card-body">
+                    <h5 class="card-title">Research</h5>
+                    <p class="card-text">Explore my research projects and interests.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 text-center bg-success text-white mb-4" onclick="location.href='education.html'">
+                <div class="card-body">
+                    <h5 class="card-title">Education</h5>
+                    <p class="card-text">Discover my educational background and achievements.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 text-center bg-warning text-white mb-4" onclick="location.href='extracurricular.html'">
+                <div class="card-body">
+                    <h5 class="card-title">Extra Curricular Activities</h5>
+                    <p class="card-text">See my involvement in extra-curricular activities.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 text-center bg-danger text-white mb-4" onclick="location.href='industry_experience.html'">
+                <div class="card-body">
+                    <h5 class="card-title">Industry Experience</h5>
+                    <p class="card-text">Learn about my industry experience and roles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
