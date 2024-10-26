@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipe Leak Simulation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #87CEFA 100%, #f0f0f0 100%); /* Water effect */
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        #pipe {
+            width: 600px; /* Horizontal pipe width */
+            height: 120px; /* Pipe height */
+            background-color: #8B4513; /* Brown color for the pipe */
+            position: relative;
+            border-radius: 60px; /* Rounded edges for the pipe */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+			margin-bottom:1cm;
+        }
+		#speedSlider{
+		width:500px;
+		}
+        .bubble {
+            background-color: rgba(255, 255, 255, 0.8); /* Light color for bubbles */
+            border-radius: 50%;
+			border-color: blue;
+			border-width:2px;
+            position: absolute;
+            bottom: 0; /* Start from the bottom of the pipe */
+            opacity: 0.6;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Glow effect for bubbles */
+        }
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh); /* Move to the top of the viewport */
+                opacity: 0;
+            }
+        }
+		
+		
+		@media (max-width: 600px) {
+            body {
+                font-size: 20px; /* Smaller font for mobile */
+            }
+            
+            #pipe {
+            width: 80%; /* Horizontal pipe width */
+            height: 20%; /* Pipe height */
+        }
+		#speedSlider{
+		width:60%;
+		}
+		}
+    </style>
+</head>
+<body>
+
+<div id="pipe"></div>
+
+<label for="speedSlider">Slide to change the number of bubbles formed per second</label>
+<input type="range" id="speedSlider" min="0.1" max="20" value="6" step="0.1">
+<span id="speedValue">6 bps</span>
+<span id="cchr">90 cc/hr</span>
+
+<script>
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValue = document.getElementById('speedValue');
+    const pipe = document.getElementById('pipe');
+    const bubblePosition = (pipe.offsetWidth - 10) / 3; // Center position for bubbles
+
+    function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        // Set initial size and position
+        bubble.style.width = '1px';
+        bubble.style.height = '1px';
+        bubble.style.left = bubblePosition + 'px'; // Fixed position for all bubbles
+        
+        // Append the bubble to the pipe
+        pipe.appendChild(bubble);
+
+        // Animate bubble growth
+        let size = 1; // Start size
+        const growthInterval = setInterval(() => {
+            if (size < 15) { // Maximum size of 10 pixels
+                size += 1; // Increase size by 1 pixel
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+            } else {
+                clearInterval(growthInterval); // Stop growth when max size is reached
+                
+                // Detach and start moving upwards after a short delay
+                setTimeout(() => {
+                    bubble.style.animation = `rise 2s linear forwards`; // Constant rising animation
+                    
+                    // Remove the bubble after it rises
+                    setTimeout(() => {
+                        bubble.remove();
+                    }, 2000); // Match this with animation duration
+
+                    // Create a new bubble immediately after this one detaches
+                    createBubble();
+                }, 50); // Short delay before starting to rise
+            }
+        }, (1000/speedSlider.value )/ 10); // Growth speed controlled by slider (proportional to slider value)
+    }
+
+    // Create the first bubble immediately
+    createBubble();
+
+    // Update speed value display based on slider input
+    speedSlider.addEventListener('input', () => {
+        speedValue.textContent = `${speedSlider.value} bps`;
+		cchr.textContent = `${Math.round(speedSlider.value * 15)} cc/hr`;
+    });
+</script>
+
+</body>
+</html>
