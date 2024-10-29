@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leak Rate Unit Converter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+  			overflow-y: auto; /* Enable vertical scrolling */
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px; /* Adjusted width for better layout */
+			
+
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+        } 
+		.column {
+            display: flex;
+            flex-direction: column; /* Vertical arrangement of inputs */
+            width: 45%; /* Width of each column */
+        }
+        .input-group {
+            display: flex;
+            align-items: center; /* Aligns label and input vertically */
+            margin-bottom: 15px; /* Space between input groups */
+        }
+        label {
+            flex-basis: 50%; /* Label takes half of the width */
+            color: #495057;
+            font-weight: bold;
+        }
+        input {
+            flex-basis: 50%; /* Input takes the other half */
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .definition {
+            flex-basis: 100%; /* Make definition take full width */
+            font-size: 12px; /* Smaller font for definitions */
+            color: #6c757d; /* Gray color for definitions */
+			display: none;
+        }        .definition2 {
+            flex-basis: 100%; /* Make definition take full width */
+            font-size: 15px; /* Smaller font for definitions */
+            color: #6c757d; /* Gray color for definitions */
+			
+        }
+    </style>
+</head>
+<body>
+    
+	
+	<div class="container"> 	
+<!--<div class="definition2">Leak rate conversion is independent of test pressure.</div>
+
+<div class="input-group">
+            <label for="testp">Test Pressure (bar):</label>
+            <input type="number" id="testp" placeholder="0.4" oninput="convert('testp', this.value)">
+        </div>
+		-->
+				<h3>Leak Rates</h3>
+        
+		 <div class="input-group">
+            <label for="mbarlps">mbar-l/s:</label>
+            <input type="number" id="mbarlps" placeholder="Enter mbar-L/s" oninput="convert('mbarlps', this.value)">
+        </div>
+        <div class="definition">mbar-L/s.</div>
+		
+		<div class="input-group">
+            <label for="stdLmin">std-L/min:</label>
+            <input type="number" id="stdLmin" placeholder="Enter L/min" oninput="convert('stdLmin', this.value)">
+        </div>
+        <div class="definition">Standard Liters per minute.</div>
+
+
+<div class="input-group">
+            <label for="sccm">std-cc/min:</label>
+            <input type="number" id="sccm" placeholder="1" oninput="convert('sccm', this.value)">
+        </div>
+        <div class="definition">Standard cubic centimeters per minute.</div>
+
+        
+
+
+        <div class="input-group">
+            <label for="atmccps">atm-cc/s:</label>
+            <input type="number" id="atmccps" placeholder="Enter atm-cc/s" oninput="convert('atmccps', this.value)">
+        </div>
+        <div class="definition">atm-cc/s.</div>
+		
+		
+        <div class="input-group">
+            <label for="atmcchr">atm-cc/hr:</label>
+            <input type="number" id="atmcchr" placeholder="Enter atm-cc/hr" oninput="convert('atmcchr', this.value)">
+        </div>
+        <div class="definition">Standard cubic centimeters per hour.</div>
+
+		</div>
+		
+		<div class="container">
+		<h3>Pressure Drop</h3>
+			<div class="input-group">
+            <label for="testvolume">Test Volume (cc):</label>
+            <input type="number" id="testvolume" placeholder="4000" oninput="convert('testvolume', this.value)">
+        </div>
+        <div class="definition">Test Volume in cc.</div>
+		
+<div class="input-group">
+            <label for="testtime">Test Time (s):</label>
+            <input type="number" id="testtime" placeholder="10" oninput="convert('testtime', this.value)">
+        </div>
+        <div class="definition">Test time in seconds.</div>
+
+		<div class="input-group">
+            <label for="Pas">Pressure decay (Pa/s):</label>
+            <input type="number" id="Pas" placeholder="Enter Pa/s" oninput="convert('Pas', this.value)">
+        </div>
+        <div class="definition">Pascal per second.</div>
+		
+		<div class="input-group">
+            <label for="Pam">Pressure decay (Pa/min):</label>
+            <input type="number" id="Pam" placeholder="Enter Pa/min" oninput="convert('Pam', this.value)">
+        </div>
+        <div class="definition">Pascal per minute.</div>
+		
+				<div class="input-group">
+            <label for="Pa">Pressure drop (Pa):</label>
+            <input type="number" id="Pa" placeholder="Enter Pressure drop in Pa" oninput="convert('Pa', this.value)">
+        </div>
+        <div class="definition">Pressure drop during test time.</div>
+		
+		</div>
+
+<div class="container">
+<h3>Bubbling Rates</h3>
+<div class="input-group">
+            <label for="dia">Bubble dia (mm):</label>
+            <input type="number" id="dia" placeholder="2" oninput="convert('dia', this.value)">
+        </div>
+        <div class="definition">Reference bubble diameter.</div>
+
+        <div class="input-group">
+            <label for="bps">bubbles/s:</label>
+            <input type="number" id="bps" placeholder="Enter bubbles/s" oninput="convert('bps', this.value)">
+        </div>
+        <div class="definition">Bubbles per second.</div>
+		
+        <div class="input-group">
+            <label for="bpm">bubbles/min:</label>
+            <input type="number" id="bpm" placeholder="Enter bubbles/min" oninput="convert('bpm', this.value)">
+        </div>
+        <div class="definition">Bubbles per minute.</div>
+		
+        <div class="input-group">
+            <label for="mpb">mins/bubble:</label>
+            <input type="number" id="mpb" placeholder="Enter minutes/bubble" oninput="convert('mpb', this.value)">
+        </div>
+        <div class="definition">Minutes per bubble.</div>
+		</div>
+    
+    <script>
+    
+	function convert(unit, value) {
+        value = parseFloat(value) || 0;
+		d=0.1 * parseFloat(document.getElementById('dia').value)|| 0.2;
+		v=4 / 3 * Math.PI * Math.pow(d,3) / 8;
+		tv=parseFloat(document.getElementById('testvolume').value) || 4000;
+		tt= parseFloat(document.getElementById('testtime').value)|| 10;
+                
+        switch(unit) {
+            case 'sccm':			
+                document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);	
+                break;
+				
+				case 'stdLmin':	
+				value=value * 1000;
+				document.getElementById('sccm').value = (value ).toFixed(4);
+         	    document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);	
+            break;
+				case 'atmcchr':							
+                value=value / 60;
+				document.getElementById('sccm').value = (value).toFixed(4);
+         	    document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+              	document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);	
+               break;
+				case 'mbarlps':	
+value= value * (60*1.013);				
+			    document.getElementById('sccm').value = (value).toFixed(4);
+                 document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);	
+               break;
+				case 'atmccps':	
+				value= value * (60);
+			    document.getElementById('sccm').value = (value).toFixed(4);
+                 document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);	
+               break;
+			   
+			   case 'bps':	
+				value=v * 60* value;
+				document.getElementById('sccm').value = (value ).toFixed(4);
+				document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+				 case 'bpm':	
+				value=value * v ;
+				document.getElementById('sccm').value = (value ).toFixed(4);
+				document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+				 case 'mpb':	
+				value=v / (value);
+				document.getElementById('sccm').value = (value ).toFixed(4);
+				document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+				 case 'Pas':	
+				value=value * tv * 60/ (1.013e5);
+				document.getElementById('sccm').value = (value ).toFixed(4);
+				document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+				 case 'Pam':	
+				value=value * tv/ (1.013e5);
+				document.getElementById('sccm').value = (value ).toFixed(4);
+				document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+				 case 'Pa':	
+				value=value * tv * 60/ (1.013e5*tt);   
+				document.getElementById('sccm').value = (value ).toFixed(4);
+				document.getElementById('stdLmin').value = (value / 1000).toFixed(4);
+                document.getElementById('atmcchr').value = (value *  60).toFixed(4);
+                document.getElementById('mbarlps').value = (value / 60 * 1.013).toFixed(4);
+                document.getElementById('atmccps').value = (value / 60).toFixed(4);
+                document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                break;
+				
+				 case 'dia':
+				 d=value;
+				 
+				value=document.getElementById('sccm').value;
+				document.getElementById('bps').value = (value / (60* v)).toFixed(4);
+                document.getElementById('bpm').value = (value  / v).toFixed(4);
+                document.getElementById('mpb').value = (v / (value)).toFixed(4);
+                break;
+				 case 'testtime':
+				 tt=value;
+				 value=document.getElementById('sccm').value;
+				document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+             case 'testvolume':	
+			 tv =value;
+value=document.getElementById('sccm').value;
+				 document.getElementById('Pas').value = (value  / (60 * tv)  * (1.013e5)).toFixed(4);
+                document.getElementById('Pam').value = (value / tv * (1.013e5)).toFixed(4);
+                document.getElementById('Pa').value = (value /( tv*60) * (1.013e5) * tt).toFixed(4);
+         	    break;
+        }
+    }
+    </script>
+
+</body>
+</html>	
