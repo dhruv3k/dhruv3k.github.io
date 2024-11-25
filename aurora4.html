@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Borealis Effect with Stars</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            perspective: 1000px; /* Adds perspective for star movement */
+        }
+
+        .aurora {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: linear-gradient(270deg, rgba(0, 255, 0, 0.6), rgba(0, 255, 255, 0.4), rgba(255, 0, 255, 0.4), rgba(0, 128, 255, 0.4));
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: moveAurora 20s linear infinite; /* Slower animation */
+        }
+
+        @keyframes moveAurora {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translate(20%, -30%) scale(1.05);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(40%, -10%) scale(1);
+                opacity: 0.7;
+            }
+            75% {
+                transform: translate(20%, 10%) scale(1.05);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .content {
+            z-index: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora"></div>
+    <div class="stars"></div>
+    <div class="content">
+        <h1>Aurora Borealis Effect</h1>
+        <p>Enjoy the mesmerizing colors of the northern lights!</p>
+    </div>
+
+    <script>
+        const starsContainer = document.querySelector('.stars');
+        const numStars = 200; // Number of stars to create
+
+        // Create stars
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Random size for each star
+            const size = Math.random() * (3 - 1) + 1; // Size between 1px and 3px
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            
+            // Position the star randomly in the viewport
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            star.style.top = `${Math.random() * window.innerHeight}px`;
+            
+            // Set initial distance from center
+            star.dataset.distance = Math.random() * (300 - 100) + 100; // Random distance from center
+            
+            starsContainer.appendChild(star);
+        }
+
+        // Move stars to create a "flying through space" effect
+        function animateStars() {
+            const stars = document.querySelectorAll('.star');
+            
+            stars.forEach(star => {
+                let distance = parseFloat(star.dataset.distance); // Get distance from center
+                let speed = distance / 100; // Speed based on distance
+
+                // Move star outward by increasing its distance from the center
+                let angle = Math.atan2(parseFloat(star.style.top) - window.innerHeight / 2,
+                                        parseFloat(star.style.left) - window.innerWidth / 2);
+                
+                let newLeft = parseFloat(star.style.left) + speed * Math.cos(angle);
+                let newTop = parseFloat(star.style.top) + speed * Math.sin(angle);
+
+                // Reset position if it goes out of bounds
+                if (newLeft > window.innerWidth || newLeft < -10 || newTop > window.innerHeight || newTop < -10) {
+                    newLeft = Math.random() * window.innerWidth; 
+                    newTop = Math.random() * window.innerHeight; 
+                    star.dataset.distance = Math.random() * (300 - 100) + 100; // Reset distance
+                    star.style.opacity = Math.random(); // Random opacity for twinkling effect
+                    star.style.transform = `scale(${Math.random()})`; // Random size for twinkling effect
+                }
+
+                star.style.left = `${newLeft}px`;
+                star.style.top = `${newTop}px`;
+           });
+           
+           requestAnimationFrame(animateStars); // Call the function again for continuous animation
+        }
+
+        animateStars(); // Start the animation loop
+    </script>
+</body>
+</html>
